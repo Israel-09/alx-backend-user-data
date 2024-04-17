@@ -1,4 +1,4 @@
-#!/usr/bin//env python3
+#!/usr/bin/env python3
 """authentication template
 """
 from flask import request
