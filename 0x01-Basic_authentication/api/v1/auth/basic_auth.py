@@ -3,6 +3,8 @@
 basic auth implementation
 """
 from api.v1.auth.auth import Auth
+from models.user import User
+from typing import TypeVar
 
 
 class BasicAuth(Auth):
@@ -40,3 +42,16 @@ class BasicAuth(Auth):
 
         u_email, u_pass = decoded_header.split(':')
         return u_email, u_pass
+
+    def user_object_from_credentials(self, user_email: str,
+                                     user_pwd: str) -> TypeVar('User'):
+        """get user from credentials"""
+        if type(user_email) is not str and type(user_pwd) is not str:
+            return None
+        user = User.search({"email": user_email})
+        if user:
+            user = user[0]
+            if user.is_valid_password(user_pwd) is True:
+                return user
+            return None
+        return None
