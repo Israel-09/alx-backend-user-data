@@ -49,7 +49,7 @@ def before_request():
     if auth:
         excluded_paths = ['/api/v1/status/',
                           '/api/v1/unauthorized/', '/api/v1/forbidden/']
-        if auth.require_auth(request.path, excluded_paths) == False:
+        if auth.require_auth(request.path, excluded_paths) is False:
             return
         if auth.authorization_header(request) is None:
             abort(401)
