@@ -36,10 +36,8 @@ class BasicAuth(Auth):
         """
         extracts the client's credentials
         """
-        if (not decoded_header or type(decoded_header) is not str or
-                ":" not in decoded_header):
+        if type(decoded_header) is not str or ":" not in decoded_header:
             return None, None
-
         u_email, u_pass = decoded_header.split(':')
         return u_email, u_pass
 
@@ -53,4 +51,17 @@ class BasicAuth(Auth):
             user = user[0]
             if user.is_valid_password(user_pwd) is True:
                 return user
+        return None
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """retrieves current user from db"""
+        if not request:
+            return None
+        auth_header = self.authorization_header(request)
+        b64credentials = self.extract_base64_authorization_header(auth_header)
+        credentials = self.decode_base64_authorization_header(b64credentials)
+        mail_pass = self.extract_user_credentials(credentials)
+        if mail_pass:
+            u_email, u_pass = mail_pass
+            return self.user_object_from_credentials(u_email, u_pass)
         return None
