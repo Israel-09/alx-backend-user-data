@@ -15,3 +15,17 @@ class BasicAuth(Auth):
             if authorization_header.startswith('Basic '):
                 return authorization_header.split()[1]
         return None
+
+    def decode_base64_authorization_header(self, base64_header: str) -> str:
+        """
+        decodes base64 string
+        """
+        import base64
+
+        try:
+            if type(base64_header) is str:
+                msg = base64.b64decode(base64_header)
+                return msg.decode('utf-8')
+            return None
+        except Exception:
+            return None
