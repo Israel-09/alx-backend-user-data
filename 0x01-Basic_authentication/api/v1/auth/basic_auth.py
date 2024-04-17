@@ -29,3 +29,14 @@ class BasicAuth(Auth):
             return None
         except Exception:
             return None
+
+    def extract_user_credentials(self, decoded_header: str) -> (str, str):
+        """
+        extracts the client's credentials
+        """
+        if (not decoded_header or type(decoded_header) is not str or
+                ":" not in decoded_header):
+            return None, None
+
+        u_email, u_pass = decoded_header.split(':')
+        return u_email, u_pass
