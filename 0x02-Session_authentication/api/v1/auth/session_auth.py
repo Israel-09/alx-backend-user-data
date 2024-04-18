@@ -2,10 +2,10 @@
 """
 session auth implementaion
 """
-from api.v1.auth.auth import auth
+from api.v1.auth.auth import Auth
 
 
-class SessionAuth(auth):
+class SessionAuth(Auth):
     """
     template for session auth
     """
