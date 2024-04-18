@@ -3,6 +3,7 @@
 session auth implementaion
 """
 from api.v1.auth.auth import Auth
+from models.user import User
 
 
 class SessionAuth(Auth):
@@ -32,4 +33,18 @@ class SessionAuth(Auth):
         user_id = self.user_id_by_session_id.get(session_id)
         if user_id:
             return user_id
+        return None
+
+    def current_user(self, request=None):
+        """
+        retrieves current user from the database
+        """
+        if request is None:
+            return None
+        session_id = self.session_cookie(request)
+        if session_id is None:
+            return None
+        user_id = self.user_id_for_session_id(session_id)
+        if user_id is not None:
+            return User.get(user_id)
         return None
