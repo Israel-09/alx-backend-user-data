@@ -6,4 +6,7 @@ from api.v1.auth.auth import auth
 
 
 class SessionAuth(auth):
+    """
+    template for session auth
+    """
     pass
