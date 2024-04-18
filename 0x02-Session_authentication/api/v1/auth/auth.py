@@ -2,6 +2,8 @@
 """authentication template
 """
 from typing import List, TypeVar
+from os import getenv
+from flask import jsonify
 
 
 class Auth:
@@ -26,3 +28,13 @@ class Auth:
     def current_user(self, request=None) -> TypeVar('User'):
         """current user"""
         return None
+
+    def session_cookie(self, request=None):
+        """
+        gets a cookie value from a request
+        """
+        if request is None:
+            return None
+        session_name = getenv('SESSION_NAME')
+        print(session_name)
+        return request.cookies.get(session_name)
