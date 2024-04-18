@@ -3,7 +3,7 @@
 views for session authentication
 """
 from api.v1.views import app_views
-from flask import request, jsonify, make_response, render_template
+from flask import request, jsonify, make_response, abort
 from models.user import User
 from os import getenv
 
@@ -32,3 +32,16 @@ def retieve_user():
     resp = make_response(jsonify(user.to_json()))
     resp.set_cookie(session_name, session_id)
     return resp
+
+
+@app_views.route("/auth_session/logout",
+                 methods=['DELETE'], strict_slashes=False)
+def logout_session():
+    """
+    delete a session instance
+    """
+    from api.v1.app import auth
+
+    if auth.destroy_session(request):
+        return jsonify({}), 200
+    abort(404)
