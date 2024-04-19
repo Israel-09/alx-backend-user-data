@@ -18,7 +18,6 @@ class Auth:
                 req_auth = not path.startswith(excluded_path.rstrip('*'))
             else:
                 req_auth = not path == excluded_path
-            print(path, excluded_path)
             if req_auth is False:
                 return req_auth
         return True
