@@ -8,12 +8,19 @@ class Auth:
     """Autication class"""
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """check if session requires auth"""
+        req_auth = True
         if not path or (not excluded_paths or len(excluded_paths) == 0):
             return True
 
         path = path.rstrip('/') + '/'
-        if path in excluded_paths:
-            return False
+        for excluded_path in excluded_paths:
+            if excluded_path.endswith('*'):
+                req_auth = not path.startswith(excluded_path.rstrip('*'))
+            else:
+                req_auth = not path == excluded_path
+            print(path, excluded_path)
+            if req_auth is False:
+                return req_auth
         return True
 
     def authorization_header(self, request=None) -> str:
