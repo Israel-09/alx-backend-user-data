@@ -38,7 +38,9 @@ class BasicAuth(Auth):
         """
         if type(decoded_header) is not str or ":" not in decoded_header:
             return None, None
-        u_email, u_pass = decoded_header.split(':')
+        decoded_list = decoded_header.split(':')
+        u_email = decoded_list[0]
+        u_pass = ":".join(decoded_list[1:])
         return u_email, u_pass
 
     def user_object_from_credentials(self, user_email: str,
