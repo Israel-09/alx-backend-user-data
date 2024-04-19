@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """authentication template
 """
-from flask import request
 from typing import List, TypeVar
 
 
