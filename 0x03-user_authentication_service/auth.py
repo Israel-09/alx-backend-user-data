@@ -7,8 +7,9 @@ import bcrypt
 from sqlalchemy.orm.exc import NoResultFound
 from uuid import uuid4
 
+from typing import bytes
 
-def _hash_password(password):
+def _hash_password(password: str) -> bytes:
     """
     hash password using bcrypt
     """
