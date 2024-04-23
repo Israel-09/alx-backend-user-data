@@ -28,7 +28,7 @@ class Auth():
         """
         self._db = DB()
 
-    def register_user(self, email, password):
+    def register_user(self, email: str, password: str) -> User:
         """
         register_user but check if user exists first
         """
