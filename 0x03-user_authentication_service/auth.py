@@ -32,7 +32,7 @@ class Auth():
         """
         register_user but check if user exists first
         """
-        if type(email) is not str or tpe(password) is not str:
+        if type(email) is not str or type(password) is not str:
             raise ValueError
         try:
             user = self._db.find_user_by(email=email)
