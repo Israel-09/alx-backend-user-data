@@ -46,7 +46,8 @@ class Auth():
             raise ValueError("User {} already exists".format(email))
         except NoResultFound:
             hashed_password = _hash_password(password)
-            self._db.add_user(email, hashed_password)
+            user = self._db.add_user(email, hashed_password)
+            return user
 
     def valid_login(self, email: str, password: str) -> bool:
         """
@@ -88,8 +89,7 @@ class Auth():
         if type(user_id) is not int:
             return None
         try:
-            user = self._db.find_user_by(id=user_id)
-            self._db.update_user(user.id, session_id=None)
+            self._db.update_user(user_id, session_id=None)
         except NoResultFound:
             return None
         return None
