@@ -73,7 +73,7 @@ class Auth():
         except ValueError:
             return None
 
-    def get_user_from_session_id(self, session_id):
+    def get_user_from_session_id(self, session_id: str) -> User:
         """retrieves user using the session id"""
         if session_id is None:
             return None
@@ -83,16 +83,17 @@ class Auth():
         except NoResultFound as e:
             return None
 
-    def destroy_session(self, user_id):
+    def destroy_session(self, user_id: int) -> None:
         """deletes session_id from db"""
         if type(user_id) is not int:
-            return
+            return None
         try:
             user = self._db.find_user_by(id=user_id)
             user.session_id = None
             self._db.commit()
         except NoResultFound:
             return None
+        return None
 
     def get_reset_password_token(self, email: str) -> str:
         """
