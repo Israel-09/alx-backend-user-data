@@ -19,6 +19,12 @@ def _hash_password(password: str) -> bytes:
     return hashed_password
 
 
+def _generate_uuid() -> str:
+    """generate unique id"""
+    new_uuid = uuid.uuid4()
+    return str(new_uuid)
+
+
 class Auth():
     """
     Auth class to interact with the authentication db
@@ -54,18 +60,13 @@ class Auth():
             return False
         return False
 
-    def _generate_uuid(self) -> str:
-        """generate unique id"""
-        new_uuid = uuid.uuid4()
-        return str(new_uuid)
-
     def create_session(self, email: str) -> str:
         """
         created a session for user login
         """
         try:
             user = self._db.find_user_by(email=email)
-            self._db.update_user(user.id, session_id=self._generate_uuid())
+            self._db.update_user(user.id, session_id=_generate_uuid())
             return user.session_id
         except NoResultFound:
             return None
