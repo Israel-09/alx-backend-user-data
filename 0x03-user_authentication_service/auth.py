@@ -53,7 +53,7 @@ class Auth():
         except NoResultFound:
             return False
         return False
-    
+ 
     def _generate_uuid(self) -> str:
         """generate unique id"""
         return str(uuid4())
@@ -64,8 +64,8 @@ class Auth():
         """
         try:
             user = self._db.find_user_by(email=email)
-            user.session_id = self._generate_uuid()
-            return self._db.find_user_by(email=email).session_id
+            self._db.update_user(user.id, session_id=self._generate_uuid())
+            return user.session_id
 
         except NoResultFound:
             return None
