@@ -54,14 +54,16 @@ class Auth():
             return False
         return False
 
+    def _generate_uuid(self) -> str:
+        return str(uuid4())
+
     def create_session(self, email: str) -> str:
         """
         created a session for user login
         """
         try:
             user = self._db.find_user_by(email=email)
-            session_id = str(uuid4())
-            user.session_id = session_id
+            user.session_id = self._generate_uuid()
             self._db.commit()
             return session_id
 
