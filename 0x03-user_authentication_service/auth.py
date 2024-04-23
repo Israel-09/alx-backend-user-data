@@ -42,7 +42,7 @@ class Auth():
             hashed_password = _hash_password(password)
             self._db.add_user(email, hashed_password)
 
-    def valid_login(self, email, password):
+    def valid_login(self, email: str, password: str) -> bool:
         """
         validate login credentials
         """
@@ -54,7 +54,7 @@ class Auth():
             return False
         return False
 
-    def create_session(self, email):
+    def create_session(self, email: str) -> str:
         """
         created a session for user login
         """
