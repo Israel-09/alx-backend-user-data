@@ -5,7 +5,7 @@ Auth implementation
 from db import DB
 import bcrypt
 from sqlalchemy.orm.exc import NoResultFound
-from uuid import uuid4
+import uuid
 from user import User
 
 
@@ -56,7 +56,8 @@ class Auth():
 
     def _generate_uuid(self) -> str:
         """generate unique id"""
-        return str(uuid4())
+        new_uuid = uuid.uuid4()
+        return str(new_uuid)
 
     def create_session(self, email: str) -> str:
         """
