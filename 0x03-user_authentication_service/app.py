@@ -41,12 +41,9 @@ def login():
     email = request.form.get('email')
     password = request.form.get('password')
 
-    if email is None or password is None:
-        abort(401)
     if AUTH.valid_login(email, password):
         session_id = AUTH.create_session(email)
-        body = jsonify({"email": email, "message": "logged-in"})
-        resp = make_response(body)
+        resp = jsonify({"email": email, "message": "logged-in"})
         resp.set_cookie("session_id", session_id)
         return resp
     abort(401)
