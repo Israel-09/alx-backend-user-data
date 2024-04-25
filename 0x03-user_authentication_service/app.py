@@ -35,14 +35,14 @@ def users():
         return jsonify({"message": "email already registered"}), 400
 
 
-@app.route('/sessions', methods=['POST'], )
+@app.route('/sessions', methods=['POST'], strict_slashes=False)
 def login():
     """implement login"""
     email = request.form.get('email')
     password = request.form.get('password')
 
     if email is None or password is None:
-        return jsonify({"message": "Bad request"}), 400
+        abort(401)
     if AUTH.valid_login(email, password):
         session_id = AUTH.create_session(email)
         body = jsonify({"email": email, "message": "logged-in"})
