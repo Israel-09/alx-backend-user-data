@@ -112,7 +112,5 @@ class Auth():
             user.hashed_password = _hash_password(new_password)
             user.reset_token = None
             user.session_id = None
-            print(user)
-            self._db.commit()
         except NoResultFound:
             raise(ValueError)
