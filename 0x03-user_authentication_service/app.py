@@ -40,7 +40,7 @@ def login():
     """implement login
 
     Return:
-        json: login message  
+        json: login message
     """
     email = request.form.get('email')
     password = request.form.get('password')
@@ -65,7 +65,7 @@ def logout():
     if user is not None:
         AUTH.destroy_session(user.id)
         return redirect(url_for('home'))
-    abort(401)
+    abort(403)
 
 
 @app.route('/profile', strict_slashes=False)
